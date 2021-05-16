@@ -23,10 +23,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "external plugins example"
+rootProject.name = "Oli Plugins"
 
-include(":kotlinexample")
-include(":javaexample")
+include(":olivorkath")
 
 for (project in rootProject.children) {
     project.apply {
