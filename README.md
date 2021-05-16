@@ -1,6 +1,13 @@
 # Oli Plugins
 
-Welcome to my plugins repo. To use my plugins you must have Illumine's repo for the iUtils plugin.
+Welcome to my plugins repo. To add my repo, use the following details.
+
+**Github Repository owner:** Oiuyo
+
+**Github Repository name:** Oli-plugins
+
+
+To use my plugins you must have Illumine's repo for the iUtils plugin. 
 
 **Github Repository owner:** illumineawake
 
