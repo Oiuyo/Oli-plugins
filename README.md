@@ -6,7 +6,7 @@ Welcome to my plugins repo. To use my plugins you must have Illumine's repo for 
 
 **Github Repository name:** illu-plugins
 
-#Credits
+# Credits
 I want to credit Mike and ImNo in particular for helping me learn about plugins and plugin development as well as Illumine for his extensive utils and for building a great community in his server.
 Please support them and check out their plugins in their servers.
 
