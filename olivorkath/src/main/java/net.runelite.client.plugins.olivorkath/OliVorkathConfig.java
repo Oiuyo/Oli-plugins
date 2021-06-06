@@ -76,4 +76,14 @@ public interface OliVorkathConfig extends Config
 		return true;
 	}
 
+/*	@ConfigItem(
+			keyName = "switchBolts",
+			name = "Switch bolts",
+			description = "Switches bolts at the ideal health threshold.",
+			position = 4
+	)
+	default boolean switchBolts()
+	{
+		return false;
+	}*/
 }
