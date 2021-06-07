@@ -85,6 +85,6 @@ public interface OliDropperConfig extends Config
     )
     default String itemIDs()
     {
-        return "";
+        return null;
     }
 }
