@@ -28,7 +28,7 @@ import ProjectVersions.openosrsVersion
 version = "0.0.1"
 
 project.extra["PluginName"] = "OliContinue"
-project.extra["PluginDescription"] = "Continues dialog"
+project.extra["PluginDescription"] = "Continues dialog, credit to ben93riggs."
 project.extra["PluginProvider"] = "Oiuyo#0680"
 
 dependencies {
@@ -37,7 +37,6 @@ dependencies {
 
 	compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
 	compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
-	compileOnly(group = "com.openosrs.externals", name = "iutils", version = "3.2.0+");
 
 	compileOnly(Libraries.guice)
 	compileOnly(Libraries.lombok)

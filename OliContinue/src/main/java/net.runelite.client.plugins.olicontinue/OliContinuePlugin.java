@@ -8,9 +8,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.iutils.*;
 import org.pf4j.Extension;
 
 import javax.inject.Inject;
@@ -18,10 +16,9 @@ import java.awt.event.KeyEvent;
 
 
 @Extension
-@PluginDependency(iUtils.class)
 @PluginDescriptor(
 		name = "OliContinue",
-		description = "Continues dialog",
+		description = "Continues dialog, credit to ben93riggs.",
 		tags = {"oli", "oiuyo", "continue", "quest"}
 )
 @Slf4j
@@ -78,6 +75,14 @@ public class OliContinuePlugin extends Plugin {
 		{
 			return widget;
 		}
+
+		widget = client.getWidget(193, 0);
+
+		if (widget != null && !widget.isHidden())
+		{
+			return widget;
+		}
+
 		return null;
 	}
 
