@@ -1,5 +1,3 @@
-import ProjectVersions.openosrsVersion
-
 /*
  * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
@@ -25,10 +23,10 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.0.1"
+version = "4.0.1"
 
-project.extra["PluginName"] = "OliVorkath" // This is the name that is used in the external plugin manager panel
-project.extra["PluginDescription"] = "Automatically dodges fireballs and re-enables quick prayers" // This is the description that is used in the external plugin manager panel
+project.extra["PluginName"] = "OliMuseum"
+project.extra["PluginDescription"] = "Cleans finds in Varrock museum for xp lamps"
 
 dependencies {
     annotationProcessor(Libraries.lombok)
@@ -51,9 +49,10 @@ tasks {
                     "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
                     "Plugin-Provider" to project.extra["PluginProvider"],
                     "Plugin-Dependencies" to
-                        arrayOf(
-                            nameToId("iUtils")
-                        ).joinToString(),
+                            arrayOf(
+                                    nameToId("iUtils"),
+                                    "chinbreakhandler-plugin"
+                            ).joinToString(),
                     "Plugin-Description" to project.extra["PluginDescription"],
                     "Plugin-License" to project.extra["PluginLicense"]
             ))
