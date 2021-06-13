@@ -8,6 +8,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.*;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -124,17 +125,25 @@ public class OliVorkathPlugin extends Plugin
 			return;
 		}
 
+		Widget widget = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
+
+		if (widget != null)
+		{
+			bounds = widget.getBounds();
+		}
+
 		if (npc.getName().equals("Vorkath"))
 		{
+			log.info("onNpcDespawned trigger");
 			vorkath = null;
-			if (config.enablePrayer()) {
-				Widget widget = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
-
-				MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
-
-				menu.setEntry(entry);
-
-				mouse.click(bounds);
+			if (config.switchBolts())
+			{
+				if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
+				{
+					log.info("switch bolts to ruby npcdespawn");
+					WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
+					utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
+				}
 			}
 		}
 	}
@@ -173,18 +182,21 @@ public class OliVorkathPlugin extends Plugin
 		{
 			timeout--;
 		}
-/*		if (vorkath != null)
+		if (vorkath != null && calculateHealth(vorkath) > 0)
 		{
-			final int currentHealth = calculateHealth(vorkath);
-			if (currentHealth < 260 && config.switchBolts())
+			if (calculateHealth(vorkath) < 260 && config.switchBolts())
 			{
 				if (!player.isItemEquipped(DIAMOND_SET) && inventory.containsItem(DIAMOND_SET))
 				{
 					WidgetItem diamondBolts = inventory.getWidgetItem(DIAMOND_SET);
-					utils.doItemActionMsTime(diamondBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 0);
+					utils.doItemActionMsTime(diamondBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
+					if (config.fastRetaliate())
+					{
+						utils.doNpcActionMsTime(vorkath, MenuAction.NPC_SECOND_OPTION.getId(), 200);
+					}
 				}
 			}
-		}*/
+		}
 
 		if (timeout == 1 && config.fastRetaliate()) {
 			utils.doNpcActionMsTime(vorkath, MenuAction.NPC_SECOND_OPTION.getId(), 0 );
@@ -215,6 +227,7 @@ public class OliVorkathPlugin extends Plugin
 
 		if ((event.getMessage().equals(prayerMessage) || event.getMessage().contains(prayerMessage)) && config.enablePrayer())
 		{
+			log.info("onChatMessage trigger");
 			menu.setEntry(entry);
 			mouse.click(bounds);
 		}
@@ -233,25 +246,41 @@ public class OliVorkathPlugin extends Plugin
 		if (vorkath != null)
 		{
 			final Actor actor = event.getActor();
-			if (actor.getAnimation() == 7950 && config.enablePrayer())
+			if (actor.getAnimation() == 7950 && actor.getName().contains("Vorkath"))
 			{
+				log.info("onAnimationChange trigger");
 				Widget widget = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
+
+				if (widget != null)
+				{
+					bounds = widget.getBounds();
+				}
 
 				MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
 				menu.setEntry(entry);
 
 				mouse.click(bounds);
+
+				if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
+				{
+					log.info("switch bolts to ruby animationchange");
+					WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
+					utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
+				}
 			}
-/*			if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
+			if (actor.getAnimation() == 7949 && actor.getName().contains("Vorkath"))
 			{
-				WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
-				utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
-			}*/
+				MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+
+				menu.setEntry(entry);
+
+				mouse.click(bounds);
+			}
 		}
 	}
 
-/*	private int calculateHealth(NPC target)
+	private int calculateHealth(NPC target)
 	{
 		// Based on OpponentInfoOverlay HP calculation & taken from the default slayer plugin
 		if (target == null || target.getName() == null)
@@ -269,5 +298,5 @@ public class OliVorkathPlugin extends Plugin
 		}
 
 		return (int)((maxHealth * healthRatio / healthScale) + 0.5f);
-	}*/
+	}
 }

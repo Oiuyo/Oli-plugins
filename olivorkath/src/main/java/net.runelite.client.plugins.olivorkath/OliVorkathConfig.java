@@ -34,8 +34,8 @@ public interface OliVorkathConfig extends Config
 {
 	@ConfigItem(
 		keyName = "enablePrayer",
-		name = "Re-enable quick prayers",
-		description = "Re-enables quick prayers after the pink dragonfire attack.",
+		name = "Manage quick prayer",
+		description = "Re-enables quick prayers after the pink dragonfire attack and enables/disables it while killing Vorkath.",
 		position = 0
 	)
 	default boolean enablePrayer()
@@ -76,7 +76,7 @@ public interface OliVorkathConfig extends Config
 		return true;
 	}
 
-/*	@ConfigItem(
+	@ConfigItem(
 			keyName = "switchBolts",
 			name = "Switch bolts",
 			description = "Switches bolts at the ideal health threshold.",
@@ -85,5 +85,5 @@ public interface OliVorkathConfig extends Config
 	default boolean switchBolts()
 	{
 		return false;
-	}*/
+	}
 }
