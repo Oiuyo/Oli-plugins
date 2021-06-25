@@ -143,7 +143,7 @@ public class OliVorkathPlugin extends Plugin
 				}
 				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
 				{
-					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 					menu.setEntry(entry);
 
@@ -218,7 +218,7 @@ public class OliVorkathPlugin extends Plugin
 
 		Widget widget = client.getWidget(10485775);
 
-		MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+		MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 		if (widget != null)
 		{
@@ -260,7 +260,7 @@ public class OliVorkathPlugin extends Plugin
 
 				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 0)
 				{
-					MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+					MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 					menu.setEntry(entry);
 
@@ -276,7 +276,7 @@ public class OliVorkathPlugin extends Plugin
 			{
 				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
 				{
-					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 					menu.setEntry(entry);
 
