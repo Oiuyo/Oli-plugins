@@ -126,7 +126,7 @@ public class OliVorkathPlugin extends Plugin
 			return;
 		}
 
-		Widget widget = client.getWidget(WidgetID.MINIMAP_GROUP_ID, 15);
+		Widget widget = client.getWidget(10485775);
 
 		if (widget != null)
 		{
@@ -136,14 +136,19 @@ public class OliVorkathPlugin extends Plugin
 		if (npc.getName().equals("Vorkath"))
 		{
 			vorkath = null;
-			if (config.switchBolts())
-			{
 				if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
 				{
 					WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
 					utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
 				}
-			}
+				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
+				{
+					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+
+					menu.setEntry(entry);
+
+					mouse.click(bounds);
+				}
 		}
 	}
 
@@ -211,7 +216,7 @@ public class OliVorkathPlugin extends Plugin
 			return;
 		}
 
-		Widget widget = client.getWidget(WidgetID.MINIMAP_GROUP_ID, 15);
+		Widget widget = client.getWidget(10485775);
 
 		MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
@@ -224,12 +229,12 @@ public class OliVorkathPlugin extends Plugin
 		String spawnExplode = ("The spawn violently explodes, unfreezing you as it does so.");
 		String unfrozenMessage = ("You become unfrozen as you kill the spawn.");
 
-		if ((event.getMessage().equals(prayerMessage) || event.getMessage().contains(prayerMessage)) && config.enablePrayer())
+		if ((event.getMessage().equals(prayerMessage) || event.getMessage().contains(prayerMessage)) && config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 0)
 		{
 			menu.setEntry(entry);
 			mouse.click(bounds);
 		}
-		else if ((event.getMessage().equals(spawnExplode) || (event.getMessage().equals(unfrozenMessage))))
+		 if ((event.getMessage().equals(spawnExplode) || (event.getMessage().equals(unfrozenMessage))))
 		{
 			if (config.fastRetaliate())
 			{
@@ -246,14 +251,14 @@ public class OliVorkathPlugin extends Plugin
 			final Actor actor = event.getActor();
 			if (actor.getAnimation() == 7950 && actor.getName().contains("Vorkath"))
 			{
-				Widget widget = client.getWidget(WidgetID.MINIMAP_GROUP_ID, 15);
+				Widget widget = client.getWidget(10485775);
 
 				if (widget != null)
 				{
 					bounds = widget.getBounds();
 				}
 
-				if (config.enablePrayer())
+				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 0)
 				{
 					MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
@@ -269,7 +274,7 @@ public class OliVorkathPlugin extends Plugin
 			}
 			if (actor.getAnimation() == 7949 && actor.getName().contains("Vorkath"))
 			{
-				if (config.enablePrayer())
+				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
 				{
 					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
