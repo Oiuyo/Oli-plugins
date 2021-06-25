@@ -7,6 +7,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.*;
 import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.config.ConfigManager;
@@ -125,7 +126,7 @@ public class OliVorkathPlugin extends Plugin
 			return;
 		}
 
-		Widget widget = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
+		Widget widget = client.getWidget(WidgetID.MINIMAP_GROUP_ID, 15);
 
 		if (widget != null)
 		{
@@ -134,13 +135,11 @@ public class OliVorkathPlugin extends Plugin
 
 		if (npc.getName().equals("Vorkath"))
 		{
-			log.info("onNpcDespawned trigger");
 			vorkath = null;
 			if (config.switchBolts())
 			{
 				if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
 				{
-					log.info("switch bolts to ruby npcdespawn");
 					WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
 					utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
 				}
@@ -212,7 +211,7 @@ public class OliVorkathPlugin extends Plugin
 			return;
 		}
 
-		Widget widget = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
+		Widget widget = client.getWidget(WidgetID.MINIMAP_GROUP_ID, 15);
 
 		MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
@@ -227,7 +226,6 @@ public class OliVorkathPlugin extends Plugin
 
 		if ((event.getMessage().equals(prayerMessage) || event.getMessage().contains(prayerMessage)) && config.enablePrayer())
 		{
-			log.info("onChatMessage trigger");
 			menu.setEntry(entry);
 			mouse.click(bounds);
 		}
@@ -248,34 +246,37 @@ public class OliVorkathPlugin extends Plugin
 			final Actor actor = event.getActor();
 			if (actor.getAnimation() == 7950 && actor.getName().contains("Vorkath"))
 			{
-				log.info("onAnimationChange trigger");
-				Widget widget = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
+				Widget widget = client.getWidget(WidgetID.MINIMAP_GROUP_ID, 15);
 
 				if (widget != null)
 				{
 					bounds = widget.getBounds();
 				}
 
-				MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+				if (config.enablePrayer())
+				{
+					MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
-				menu.setEntry(entry);
+					menu.setEntry(entry);
 
-				mouse.click(bounds);
-
+					mouse.click(bounds);
+				}
 				if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
 				{
-					log.info("switch bolts to ruby animationchange");
 					WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
 					utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
 				}
 			}
 			if (actor.getAnimation() == 7949 && actor.getName().contains("Vorkath"))
 			{
-				MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
+				if (config.enablePrayer())
+				{
+					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485774, false);
 
-				menu.setEntry(entry);
+					menu.setEntry(entry);
 
-				mouse.click(bounds);
+					mouse.click(bounds);
+				}
 			}
 		}
 	}
