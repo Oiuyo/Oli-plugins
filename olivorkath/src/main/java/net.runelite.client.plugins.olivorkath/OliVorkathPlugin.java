@@ -229,7 +229,7 @@ public class OliVorkathPlugin extends Plugin
 		String spawnExplode = ("The spawn violently explodes, unfreezing you as it does so.");
 		String unfrozenMessage = ("You become unfrozen as you kill the spawn.");
 
-		if ((event.getMessage().equals(prayerMessage) || event.getMessage().contains(prayerMessage)) && config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 0)
+		if ((event.getMessage().equals(prayerMessage) || event.getMessage().contains(prayerMessage)) && config.enablePrayer())
 		{
 			menu.setEntry(entry);
 			mouse.click(bounds);
