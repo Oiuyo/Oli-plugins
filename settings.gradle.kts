@@ -27,7 +27,6 @@ rootProject.name = "Oli Plugins"
 
 include(":olivorkath")
 include("olidropper")
-include("barbassault")
 
 for (project in rootProject.children) {
     project.apply {
