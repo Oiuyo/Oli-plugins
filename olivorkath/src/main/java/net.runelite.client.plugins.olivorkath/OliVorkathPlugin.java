@@ -188,7 +188,7 @@ public class OliVorkathPlugin extends Plugin
 		}
 		if (vorkath != null && calculateHealth(vorkath) > 0)
 		{
-			if (calculateHealth(vorkath) < 260 && config.switchBolts())
+			if (calculateHealth(vorkath) < 260 && config.switchBolts() && vorkath.getAnimation() != 7960)
 			{
 				if (!player.isItemEquipped(DIAMOND_SET) && inventory.containsItem(DIAMOND_SET))
 				{
