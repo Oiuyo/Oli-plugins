@@ -6,6 +6,7 @@ import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.*;
+import net.runelite.api.queries.GameObjectQuery;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -182,13 +183,15 @@ public class OliVorkathPlugin extends Plugin
 	@Subscribe
 	private void onGameTick(GameTick event)
 	{
+		GameObject acidPool = new GameObjectQuery().idEquals(ObjectID.ACID_POOL_32000).result(client).nearestTo(client.getLocalPlayer());
+
 		if (timeout > 0)
 		{
 			timeout--;
 		}
 		if (vorkath != null && calculateHealth(vorkath) > 0)
 		{
-			if (calculateHealth(vorkath) < 260 && config.switchBolts() && vorkath.getAnimation() != 7960)
+			if (calculateHealth(vorkath) < 260 && config.switchBolts() && vorkath.getAnimation() != 7960 && vorkath.getAnimation() != 7957 && acidPool == null)
 			{
 				if (!player.isItemEquipped(DIAMOND_SET) && inventory.containsItem(DIAMOND_SET))
 				{
