@@ -184,6 +184,7 @@ public class OliVorkathPlugin extends Plugin
 	private void onGameTick(GameTick event)
 	{
 		GameObject acidPool = new GameObjectQuery().idEquals(ObjectID.ACID_POOL_32000).result(client).nearestTo(client.getLocalPlayer());
+		NPC zombifiedSpawn = new NPCQuery().idEquals(NpcID.ZOMBIFIED_SPAWN_8063).result(client).nearestTo(client.getLocalPlayer());
 
 		if (timeout > 0)
 		{
@@ -191,7 +192,7 @@ public class OliVorkathPlugin extends Plugin
 		}
 		if (vorkath != null && calculateHealth(vorkath) > 0)
 		{
-			if (calculateHealth(vorkath) < 260 && config.switchBolts() && vorkath.getAnimation() != 7960 && vorkath.getAnimation() != 7957 && acidPool == null)
+			if (calculateHealth(vorkath) < 260 && config.switchBolts() && vorkath.getAnimation() != 7960 && vorkath.getAnimation() != 7957 && zombifiedSpawn == null && acidPool == null)
 			{
 				if (!player.isItemEquipped(DIAMOND_SET) && inventory.containsItem(DIAMOND_SET))
 				{
@@ -205,7 +206,7 @@ public class OliVorkathPlugin extends Plugin
 			}
 		}
 
-		if (timeout == 1 && config.fastRetaliate()) {
+		if (timeout == 1 && config.fastRetaliate() && zombifiedSpawn == null) {
 			utils.doNpcActionMsTime(vorkath, MenuAction.NPC_SECOND_OPTION.getId(), 0 );
 		}
 
