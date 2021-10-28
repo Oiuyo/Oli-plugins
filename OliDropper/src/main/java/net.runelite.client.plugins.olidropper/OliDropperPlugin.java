@@ -4,6 +4,7 @@ import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -14,9 +15,8 @@ import net.runelite.client.plugins.iutils.iUtils;
 import org.pf4j.Extension;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutorService;
 
 @Extension
 @PluginDependency(iUtils.class)
@@ -34,9 +34,13 @@ public class OliDropperPlugin extends Plugin {
 	private Client client;
 
 	@Inject
+	private iUtils utils;
+
+	@Inject
 	private InventoryUtils inventory;
 
-	public List<String> itemList;
+	@Inject
+	private ExecutorService executorService;
 
 	public List<Integer> itemIDList;
 
@@ -59,18 +63,21 @@ public class OliDropperPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
-		if (config.itemIDs() == null)
+	private void onGameTick(GameTick event)
+	{
+		if (config.itemIDs() != null)
+		{
+			itemIDList = utils.stringToIntList(config.itemIDs());
+		}
+		if (client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER) != null && !client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER).isHidden())
 		{
 			return;
 		}
-		else {
-			itemList = Arrays.asList(config.itemIDs().split(","));
-			itemIDList = itemList.stream().map(Integer::parseInt).collect(Collectors.toList());
-		}
+
 		if (inventory.isFull() && inventory.containsItem(itemIDList))
 		{
-			inventory.dropItems(itemIDList, true, config.sleepMin(), config.sleepMax());
+				inventory.dropItems(itemIDList, true, config.sleepMin(), config.sleepMax());
 		}
+
 	}
 }
