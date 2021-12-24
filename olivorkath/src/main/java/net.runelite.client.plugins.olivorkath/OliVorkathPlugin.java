@@ -29,9 +29,9 @@ import java.util.Set;
 @Extension
 @PluginDependency(iUtils.class)
 @PluginDescriptor(
-	name = "OliVorkath",
-	description = "Some QoL to make Vorkath more AFK",
-	tags = {"oli", "oiuyo", "vork", "vorkath"}
+		name = "OliVorkath",
+		description = "Some QoL to make Vorkath more AFK",
+		tags = {"oli", "oiuyo", "vork", "vorkath"}
 )
 @Slf4j
 public class OliVorkathPlugin extends Plugin
@@ -113,7 +113,7 @@ public class OliVorkathPlugin extends Plugin
 
 		if (npc.getName().equals("Zombified Spawn") && config.killSpawn())
 		{
-			MenuEntry entry = new MenuEntry("Cast", "", npc.getIndex(), MenuAction.SPELL_CAST_ON_NPC.getId(), 0, 0, false);
+			LegacyMenuEntry entry = new LegacyMenuEntry("Cast", "", npc.getIndex(), MenuAction.SPELL_CAST_ON_NPC.getId(), 0, 0, false);
 			utils.oneClickCastSpell(WidgetInfo.SPELL_CRUMBLE_UNDEAD, entry, npc.getConvexHull().getBounds(), 100);
 		}
 	}
@@ -138,19 +138,19 @@ public class OliVorkathPlugin extends Plugin
 		if (npc.getName().equals("Vorkath"))
 		{
 			vorkath = null;
-				if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
-				{
-					WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
-					utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
-				}
-				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
-				{
-					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
+			if (config.switchBolts() && !player.isItemEquipped(RUBY_SET) && inventory.containsItem(RUBY_SET))
+			{
+				WidgetItem rubyBolts = inventory.getWidgetItem(RUBY_SET);
+				utils.doItemActionMsTime(rubyBolts, MenuAction.ITEM_SECOND_OPTION.getId(), 9764864, 100);
+			}
+			if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
+			{
+				LegacyMenuEntry entry = new LegacyMenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
-					menu.setEntry(entry);
+				menu.setEntry(entry);
 
-					mouse.click(bounds);
-				}
+				mouse.click(bounds);
+			}
 		}
 	}
 
@@ -223,7 +223,7 @@ public class OliVorkathPlugin extends Plugin
 
 		Widget widget = client.getWidget(10485775);
 
-		MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
+		LegacyMenuEntry entry = new LegacyMenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 		if (widget != null)
 		{
@@ -239,7 +239,7 @@ public class OliVorkathPlugin extends Plugin
 			menu.setEntry(entry);
 			mouse.click(bounds);
 		}
-		 if ((event.getMessage().equals(spawnExplode) || (event.getMessage().equals(unfrozenMessage))))
+		if ((event.getMessage().equals(spawnExplode) || (event.getMessage().equals(unfrozenMessage))))
 		{
 			if (config.fastRetaliate())
 			{
@@ -265,7 +265,7 @@ public class OliVorkathPlugin extends Plugin
 
 				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 0)
 				{
-					MenuEntry entry = new MenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
+					LegacyMenuEntry entry = new LegacyMenuEntry("Activate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 					menu.setEntry(entry);
 
@@ -281,7 +281,7 @@ public class OliVorkathPlugin extends Plugin
 			{
 				if (config.enablePrayer() && client.getVar(Varbits.QUICK_PRAYER) == 1)
 				{
-					MenuEntry entry = new MenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
+					LegacyMenuEntry entry = new LegacyMenuEntry("Deactivate", "Quick-prayers", 1, MenuAction.CC_OP.getId(), -1, 10485775, false);
 
 					menu.setEntry(entry);
 
