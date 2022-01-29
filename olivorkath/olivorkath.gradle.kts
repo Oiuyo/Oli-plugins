@@ -25,7 +25,7 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.0.8"
+version = "0.0.9"
 
 project.extra["PluginName"] = "OliVorkath" // This is the name that is used in the external plugin manager panel
 project.extra["PluginDescription"] = "Automatically dodges fireballs and re-enables quick prayers" // This is the description that is used in the external plugin manager panel
@@ -34,8 +34,8 @@ dependencies {
     annotationProcessor(Libraries.lombok)
     annotationProcessor(Libraries.pf4j)
 
-    compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
-    compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
+    compileOnly("com.openosrs:runelite-api:4.19.0")
+    compileOnly("com.openosrs:runelite-client:4.19.0")
     compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.7.7+");
     //compileOnly(project(":iutils"))
 
