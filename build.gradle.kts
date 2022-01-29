@@ -24,14 +24,14 @@ allprojects {
     }
 }
 
-project.extra["GithubUrl"] = "https://github.com/Oiuyo/Oli-plugins"
+project.extra["GithubUrl"] = "github.com/gerwintr/oli-plugins"
 
 apply<BootstrapPlugin>()
 
 subprojects {
     group = "com.openosrs.externals"
 
-    project.extra["PluginProvider"] = "Oiuyo#0680"
+    project.extra["PluginProvider"] = "Gerwin"
     project.extra["ProjectSupportUrl"] = ""
     project.extra["PluginLicense"] = "3-Clause BSD License"
 
