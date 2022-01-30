@@ -25,17 +25,17 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.0.4"
+version = "0.0.2"
 
 project.extra["PluginName"] = "OliDropper" // This is the name that is used in the external plugin manager panel
-project.extra["PluginDescription"] = "Automatically drops specified items when inventory is fulll." // This is the description that is used in the external plugin manager panel
+project.extra["PluginDescription"] = "Automatically drops specified items when inventory is full." // This is the description that is used in the external plugin manager panel
 
 dependencies {
     annotationProcessor(Libraries.lombok)
     annotationProcessor(Libraries.pf4j)
 
-    compileOnly("com.openosrs:runelite-api:4.19.0")
-    compileOnly("com.openosrs:runelite-client:4.19.0")
+    compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
+    compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
     compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.7.7+");
 
     compileOnly(Libraries.guice)
