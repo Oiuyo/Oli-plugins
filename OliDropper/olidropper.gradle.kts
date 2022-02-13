@@ -34,8 +34,8 @@ dependencies {
     annotationProcessor(Libraries.lombok)
     annotationProcessor(Libraries.pf4j)
 
-    compileOnly("com.openosrs:runelite-api:4.19.0+")
-    compileOnly("com.openosrs:runelite-client:4.19.0+")
+    compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
+    compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
     compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.7.7+");
 
     compileOnly(Libraries.guice)
